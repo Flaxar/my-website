@@ -19,7 +19,7 @@ fun Application.configureRouting() {
     routing {
 
         static("/") {
-            resources("files")
+            resources("files/my-app/build")
         }
 
         get("/") {
