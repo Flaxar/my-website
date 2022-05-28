@@ -23,7 +23,7 @@ fun Application.configureRouting() {
         }
 
         get("/") {
-            call.respondRedirect("/test.html")
+            call.respondRedirect("/index.html")
         }
     }
 }
