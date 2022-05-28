@@ -34,6 +34,10 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+
+    // ktor
+    implementation 'io.ktor:ktor-server-core:2.0.1'
+    implementation 'io.ktor:ktor-server-netty:2.0.1'
 }
 
 application {

@@ -3,15 +3,41 @@
  */
 package Test
 
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.routing.*
+import io.ktor.http.*
+import io.ktor.server.http.content.* // for serving static content
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.request.*
+import java.io.File
 
-// this == class instance
-// field == variable
-class App {
-    var hello: String = "string"
+fun Application.configureRouting() {
+    routing {
+        get("/test") {
+            call.respondText("Hello")
+        }
+
+        // val html = File("test.html").readText()
+        // get("{...}") {
+        //     call.respondText(html, ContentType.Text.Html)
+        // }
+    }
+}
+
+fun Route.staticContent() {
+    static {
+        resource("/", "test.html")
+        resource("*", "test.html")
+        static("static") {
+            resources("static")
+        }
+    }
 }
 
 fun main() {
-    var app = App()
-    app.hello = "override"
-    println(app.hello)
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+        configureRouting()
+    }.start(wait = true)
 }
