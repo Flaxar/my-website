@@ -13,31 +13,17 @@ import io.ktor.server.response.*
 import io.ktor.server.request.*
 import java.io.File
 
+fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+
 fun Application.configureRouting() {
     routing {
-        get("/test") {
-            call.respondText("Hello")
-        }
-
-        // val html = File("test.html").readText()
-        // get("{...}") {
-        //     call.respondText(html, ContentType.Text.Html)
-        // }
-    }
-}
-
-fun Route.staticContent() {
-    static {
-        resource("/", "test.html")
-        resource("*", "test.html")
-        static("static") {
-            resources("static")
+        static("/static") {
+            resources("files")
         }
     }
 }
 
-fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        configureRouting()
-    }.start(wait = true)
+fun Application.module() {
+    configureRouting()
+    configureTemplating()
 }
